@@ -35,17 +35,27 @@ app.get("/api", function (req, res) {
 });
 
 
+function tiene_letras(texto) {
+  texto = texto.toLowerCase();
+  let letras = Array.from(texto)
+  
+  for (i = 0; i < texto.length; i++) {
+    if (letras.indexOf(texto.charAt(i), 0) != -1) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 app.get("/api/:date", (req, res) => {
 
-  let regex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/g
-
-  let parseDate = regex.test(req.params.date) ? req.params.date : parseInt(req.params.date)
+  let parseDate = tiene_letras(req.params.date) ? req.params.date : parseInt(req.params.date)
   let date = new Date(parseDate)
 
   let unix = date.getTime()
   let utc = date.toUTCString()
 
-  if (!unix || unix <10000000) return res.json({ error: "Invalid Date" })
+  if (!unix) return res.json({ error: "Invalid Date" })
   res.json({ unix, utc });
 })
 
