@@ -27,7 +27,7 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api", function (req, res) {
   let date = new Date()
-  let unix = Math.round(date.getTime() / 1000)
+  let unix = date.getTime()
   let utc = date.toUTCString()
 
   if (!unix) return res.json({ error: "Invalid Date" })
@@ -42,7 +42,7 @@ app.get("/api/:date", (req, res) => {
   let parseDate = regex.test(req.params.date) ? req.params.date : parseInt(req.params.date)
   let date = new Date(parseDate)
 
-  let unix = Math.round(date.getTime() / 1000)
+  let unix = date.getTime()
   let utc = date.toUTCString()
 
   if (!unix) return res.json({ error: "Invalid Date" })
