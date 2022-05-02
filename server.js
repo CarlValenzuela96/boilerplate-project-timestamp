@@ -45,7 +45,7 @@ app.get("/api/:date", (req, res) => {
   let unix = date.getTime()
   let utc = date.toUTCString()
 
-  if (!unix) return res.json({ error: "Invalid Date" })
+  if (!unix || unix <10000000) return res.json({ error: "Invalid Date" })
   res.json({ unix, utc });
 })
 
